@@ -6,7 +6,12 @@ export const metadata = { title: 'Nueva evaluación — Crisis Check' }
 
 export default async function NuevaEvaluacion() {
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  let user = null
+
+  if (supabase) {
+    const { data } = await supabase.auth.getUser()
+    user = data?.user
+  }
 
   return (
     <>

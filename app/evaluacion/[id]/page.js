@@ -10,7 +10,11 @@ export async function generateMetadata({ params }) {
 export default async function EvaluacionGuardada({ params }) {
   const { id } = await params
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
+  
+  if (!supabase) redirect('/login')
+  
+  const { data } = await supabase.auth.getUser()
+  const user = data?.user
 
   if (!user) redirect('/login')
 
