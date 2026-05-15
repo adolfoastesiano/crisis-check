@@ -85,3 +85,24 @@
   border-color: var(--danger);
   color: var(--danger);
 }
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.themeToggle:hover {
+  color: var(--text);
+  border-color: var(--accent);
+  background: var(--surface2);
+}
