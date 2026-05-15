@@ -1,4 +1,5 @@
 import './globals.css'
+import ThemeProvider from '../components/ThemeProvider'
 
 export const metadata = {
   title: 'Crisis Check — Evaluador de Crisis Mediática',
@@ -8,8 +9,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="es">
-      <body>{children}</body>
+    <html lang="es" suppressHydrationWarning>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   )
 }
