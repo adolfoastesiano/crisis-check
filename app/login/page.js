@@ -22,6 +22,10 @@ function LoginForm() {
 
   async function handleLogin(e) {
     e.preventDefault()
+    if (!supabase) {
+      setError('Error de conexion. Intentá de nuevo más tarde.')
+      return
+    }
     setLoading(true)
     setError('')
     const { error } = await supabase.auth.signInWithPassword({ email, password })
@@ -36,6 +40,10 @@ function LoginForm() {
 
   async function handleSignup(e) {
     e.preventDefault()
+    if (!supabase) {
+      setError('Error de conexion. Intentá de nuevo más tarde.')
+      return
+    }
     setLoading(true)
     setError('')
     const { error } = await supabase.auth.signUp({
