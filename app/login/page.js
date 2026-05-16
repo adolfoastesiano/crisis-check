@@ -22,39 +22,34 @@ function LoginForm() {
 
   async function handleLogin(e) {
     e.preventDefault()
-    if (!supabase) {
-      setError('Error de conexion. Intentá de nuevo más tarde.')
-      return
-    }
     setLoading(true)
     setError('')
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
-      setError('Email o contraseña incorrectos.')
-    } else {
-      router.push(redirect)
-      router.refresh()
+      setError(error.message === 'Email not confirmed'
+        ? 'Tu cuenta todavía no fue confirmada. Revisá tu bandeja de spam o creá una cuenta nueva.'
+        : 'Email o contraseña incorrectos.')
+    } else if (data.session) {
+      window.location.href = redirect
     }
     setLoading(false)
   }
 
   async function handleSignup(e) {
     e.preventDefault()
-    if (!supabase) {
-      setError('Error de conexion. Intentá de nuevo más tarde.')
-      return
-    }
     setLoading(true)
     setError('')
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { emailRedirectTo: `${location.origin}/auth/callback` },
     })
     if (error) {
       setError(error.message)
+    } else if (data.session) {
+      window.location.href = '/dashboard'
     } else {
-      setSuccess('¡Cuenta creada! Revisá tu email para confirmar la cuenta.')
+      setSuccess('¡Cuenta creada! Revisá tu email para confirmar la cuenta antes de ingresar.')
     }
     setLoading(false)
   }

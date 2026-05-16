@@ -17,7 +17,6 @@ export default function Nav({ user }) {
   }, [])
 
   async function signOut() {
-    if (!supabase) return
     await supabase.auth.signOut()
     router.push('/')
     router.refresh()

@@ -60,11 +60,6 @@ export default function Evaluador({ user }) {
     const veredicto = getVerdictoCrisis(crisisScore)
 
     const supabase = createClient()
-    if (!supabase) {
-      alert('Error de conexion. Intentá de nuevo más tarde.')
-      setGuardando(false)
-      return
-    }
     const { data, error } = await supabase
       .from('evaluaciones')
       .insert({

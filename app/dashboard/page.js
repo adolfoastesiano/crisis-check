@@ -6,11 +6,7 @@ import styles from './dashboard.module.css'
 
 export default async function Dashboard() {
   const supabase = await createClient()
-  
-  if (!supabase) redirect('/login')
-  
-  const { data } = await supabase.auth.getUser()
-  const user = data?.user
+  const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect('/login')
 

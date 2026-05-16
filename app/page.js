@@ -5,12 +5,7 @@ import styles from './page.module.css'
 
 export default async function Home() {
   const supabase = await createClient()
-  let user = null
-  
-  if (supabase) {
-    const { data } = await supabase.auth.getUser()
-    user = data?.user
-  }
+  const { data: { user } } = await supabase.auth.getUser()
 
   return (
     <>
